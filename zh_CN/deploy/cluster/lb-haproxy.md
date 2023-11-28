@@ -158,7 +158,7 @@ defaults
 backend mqtt_backend
   mode tcp
   stick-table type string len 32 size 100k expire 30m
-  stick on req.payload(0，0)，mqtt_field_value(connect，client_identifier)
+  stick on req.payload(0,0),mqtt_field_value(connect,client_identifier)
 
  # 增加 send-proxy 会把真实带给 EMQX，对应后端监听器需要启用 proxy_protocol
   # server emqx1 emqx1-cluster.emqx.io:1883 check send-proxy-v2
@@ -170,7 +170,7 @@ frontend mqtt_servers
   bind *:1883
   mode tcp
   # 拒绝非 MQTT 连接
-  tcp-request content reject unless { req.payload(0，0)，mqtt_is_valid }
+  tcp-request content reject unless { req.payload(0,0),mqtt_is_valid }
   default_backend mqtt_backend
 ```
 
@@ -327,7 +327,7 @@ backend mqtt_backend
   stick-table type string len 32 size 100k expire 30m
 
   # 使用客户端 ID 作为键
-  stick on req.payload(0，0)，mqtt_field_value(connect，client_identifier)
+  stick on req.payload(0,0),mqtt_field_value(connect,client_identifier)
  
   server emqx1 emqx1-cluster.emqx.io:1883
   server emqx2 emqx2-cluster.emqx.io:1883
